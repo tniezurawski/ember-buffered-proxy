@@ -11,7 +11,10 @@ module('ember-buffered-proxy/mixin');
 
 test('that it works', (assert) => {
   const BufferedProxy = Ember.ObjectProxy.extend(Mixin);
-  const content = { baz: 1 };
+  const content = {
+    baz: 1,
+    notifyPropertyChange() {}
+  };
 
   const proxy = BufferedProxy.create({ content });
 
@@ -60,7 +63,11 @@ test('that it works', (assert) => {
 
 test('that apply/discard only these keys works', (assert) => {
   const BufferedProxy = Ember.ObjectProxy.extend(Mixin);
-  const content = { baz: 1, world: 'hello' };
+  const content = {
+    baz: 1,
+    world: 'hello',
+    notifyPropertyChange() {}
+  };
 
   const proxy = BufferedProxy.create({ content });
 
@@ -148,7 +155,10 @@ test('that apply/discard only these keys works', (assert) => {
 test('aliased methods work', (assert) => {
   const BufferedProxy = Ember.ObjectProxy.extend(Mixin);
   const proxy = BufferedProxy.create({
-    content: { property: 1 }
+    content: {
+      property: 1,
+      notifyPropertyChange() {}
+    }
   });
 
   set(proxy, 'property', 2);
@@ -169,7 +179,10 @@ test('allows passing other variables at .create time', (assert) => {
   const fakeContainer = Ember.Object.create({});
 
   var proxy = BufferedProxy.create({
-    content: { property: 1 },
+    content: {
+      property: 1,
+      notifyPropertyChange() {}
+    },
     container: fakeContainer,
     foo: 'foo',
   });
@@ -180,7 +193,9 @@ test('allows passing other variables at .create time', (assert) => {
 
 test('that .hasChanged() works', (assert) => {
   const BufferedProxy = Ember.ObjectProxy.extend(Mixin);
-  const content = {};
+  const content = {
+    notifyPropertyChange() {}
+  };
 
   const proxy = BufferedProxy.create({ content });
 

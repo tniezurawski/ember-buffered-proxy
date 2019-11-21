@@ -83,7 +83,7 @@ export default Ember.Mixin.create({
       set(this, 'hasBufferedChanges', true);
     }
 
-    notifyPropertyChange(this, key);
+    notifyPropertyChange(content, key);
 
     return value;
   },
